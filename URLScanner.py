@@ -26,7 +26,10 @@ if len(sys.argv) < 2:
 # Parse URL to extract only domain
 url = sys.argv[1]
 extracted = tldextract.extract(url) 
-domain = f"{extracted.subdomain}.{extracted.domain}.{extracted.suffix}"
+if not extracted.subdomain:
+    domain = f"{extracted.domain}.{extracted.suffix}"    
+else:
+    domain = f"{extracted.subdomain}.{extracted.domain}.{extracted.suffix}"
 print(f"\nScanning {domain} through VirtusTotal and URLScan.io.\n")
 
 # -------------------------------- VirusTotal --------------------------------
